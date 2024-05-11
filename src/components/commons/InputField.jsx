@@ -1,18 +1,22 @@
 import React from "react";
 
-function InputField({ label, placeholder, error, value, onChange, name }) {
+function InputField({ name,label, placeholder, value, onChange, error }) {
   return (
-    <div>
+    <div className="mb-3 position-relative">
       <label className="form-label">{label}</label>
       <input
+      name={name}
+        // type="text"
+        className={`form-control ${error && 'is-invalid'}`}
         placeholder={placeholder}
-        className="form-control"
-        name={name}
-        onChange={onChange}
         value={value}
-        required
+        onChange={onChange}
       />
-      <span className="text-danger">{error}</span>
+      {error && (
+        <span className="text-danger small position-absolute start-0 mt-1">
+          {error}
+        </span>
+      )}
     </div>
   );
 }
