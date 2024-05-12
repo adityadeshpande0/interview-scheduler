@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import InputField from "../commons/InputField";
+import { Link } from "react-router-dom";
 
 function UserRegistration() {
   const [formData, setFormData] = useState({
@@ -8,7 +9,7 @@ function UserRegistration() {
     phoneNumber: "",
     otp: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
 
   const [formErrors, setFormErrors] = useState({
@@ -17,14 +18,20 @@ function UserRegistration() {
     phoneNumber: "",
     otp: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
+    });
+
+    // Clear error message for the field being edited
+    setFormErrors({
+      ...formErrors,
+      [name]: "",
     });
   };
 
@@ -71,12 +78,17 @@ function UserRegistration() {
     return emailRegex.test(email);
   };
 
+  const isSmallScreen = window.innerWidth <= 576;
+
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-4 p-4">
-          <p className="text-center">Register to Schedule Your Interview</p>
-          <form onSubmit={handleSubmit}>
+    <div className={`navbar-brand ${isSmallScreen ? "p-3" : ""}`}>
+      <p className="text-center fs-5 mt-2">
+        <span className="badge text-bg-light p-2">Register </span> to Schedule
+        Interview
+      </p>
+      <div className="container card d-flex col-md-4 bg-light">
+        <div className="row justify-content-center">
+          <div className="col-md-10 pt-4 pb-4">
             <InputField
               name="name"
               label="Name"
@@ -93,6 +105,7 @@ function UserRegistration() {
               onChange={handleChange}
               error={formErrors.email}
             />
+
             <InputField
               name="phoneNumber"
               label="Phone Number"
@@ -101,14 +114,7 @@ function UserRegistration() {
               onChange={handleChange}
               error={formErrors.phoneNumber}
             />
-            <InputField
-              name="otp"
-              label="OTP"
-              placeholder="Enter One Time Password"
-              value={formData.otp}
-              onChange={handleChange}
-              error={formErrors.otp}
-            />
+
             <InputField
               name="password"
               label="Password"
@@ -125,11 +131,13 @@ function UserRegistration() {
               onChange={handleChange}
               error={formErrors.confirmPassword}
             />
-            <button className="btn btn-primary w-100" type="submit">
+            <button
+              className="btn btn-primary w-100 mt-2"
+              onClick={handleSubmit}
+            >
               Register
             </button>
-            {/* The "w-100" class makes the button occupy full width */}
-          </form>
+          </div>
         </div>
       </div>
     </div>
