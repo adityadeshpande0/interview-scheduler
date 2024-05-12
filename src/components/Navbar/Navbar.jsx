@@ -5,16 +5,16 @@ function Navbar() {
   return (
     <nav className="navbar sticky-top bg-body-tertiary">
       <div className="container-fluid">
-        <a className="navbar-brand fs-6" href="/login">
+        <Link className="navbar-brand fs-6" to="/">
           Interview Scheduler
-        </a>
+        </Link>
         <div className="d-flex">
-          <button href="#" class="btn btn-light m-1 btn-sm">
+          <Link class="btn btn-light m-1 btn-sm" to="/">
             Register
-          </button>
-          <button href="#" class="btn btn-light m-1 btn-sm">
+          </Link>
+          <Link class="btn btn-light m-1 btn-sm" to="/login">
             Login
-          </button>
+          </Link>
         </div>
       </div>
     </nav>
