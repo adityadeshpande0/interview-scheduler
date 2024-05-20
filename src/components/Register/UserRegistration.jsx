@@ -7,7 +7,6 @@ function UserRegistration() {
     name: "",
     email: "",
     phoneNumber: "",
-    otp: "",
     password: "",
     confirmPassword: "",
   });
@@ -16,7 +15,6 @@ function UserRegistration() {
     name: "",
     email: "",
     phoneNumber: "",
-    otp: "",
     password: "",
     confirmPassword: "",
   });
@@ -51,9 +49,6 @@ function UserRegistration() {
       errors.phoneNumber = "Phone number is required";
     } else if (!isValidPhoneNumber(formData.phoneNumber)){
       errors.phoneNumber = "Enter Valid Phone Number"
-    }
-    if (!formData.otp.trim()) {
-      errors.otp = "OTP is required";
     }
     if (!formData.password.trim()) {
       errors.password = "Password is required";
@@ -111,7 +106,6 @@ function UserRegistration() {
               onChange={handleChange}
               error={formErrors.email}
             />
-
             <InputField
               name="phoneNumber"
               label="Phone Number"
