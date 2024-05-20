@@ -49,6 +49,8 @@ function UserRegistration() {
     }
     if (!formData.phoneNumber.trim()) {
       errors.phoneNumber = "Phone number is required";
+    } else if (!isValidPhoneNumber(formData.phoneNumber)){
+      errors.phoneNumber = "Enter Valid Phone Number"
     }
     if (!formData.otp.trim()) {
       errors.otp = "OTP is required";
@@ -59,7 +61,7 @@ function UserRegistration() {
     if (!formData.confirmPassword.trim()) {
       errors.confirmPassword = "Confirm Password is required";
     } else if (formData.password !== formData.confirmPassword) {
-      errors.confirmPassword = "Passwords do not match";
+      alert("Passwords Do not Match !")
     }
 
     // Update form errors
@@ -77,6 +79,10 @@ function UserRegistration() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
+  const isValidPhoneNumber = (phoneNumber) =>{
+    const phoneNumberRegex = /^(?:\+91|91|0)?[6-9]\d{9}$/;
+    return phoneNumberRegex.test(phoneNumber);
+  }
 
   const isSmallScreen = window.innerWidth <= 576;
 
@@ -127,6 +133,7 @@ function UserRegistration() {
               name="confirmPassword"
               label="Confirm Password"
               placeholder="Re Enter Password"
+              type="password"
               value={formData.confirmPassword}
               onChange={handleChange}
               error={formErrors.confirmPassword}

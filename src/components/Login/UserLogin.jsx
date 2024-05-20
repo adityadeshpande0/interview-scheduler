@@ -77,11 +77,11 @@ function UserLogin() {
               onChange={handleChange}
               error={formErrors.email}
             />
-
             <InputField
               name="password"
               label="Password"
               placeholder="Enter Password"
+              type="password"
               value={formData.password}
               onChange={handleChange}
               error={formErrors.password}

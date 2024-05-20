@@ -1,11 +1,12 @@
 import React from "react";
 
-function InputField({ name, label, placeholder, value, onChange, error }) {
+function InputField({ name, label, placeholder, value, onChange, error, type }) {
   return (
     <div className="mb-3 position-relative">
       <label className="form-label mb-0">{label}</label>
       <input
         name={name}
+        type={type}
         className={`form-control col ${error && "is-invalid"}`}
         placeholder={placeholder}
         value={value}
