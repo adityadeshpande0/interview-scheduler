@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import InputField from "../commons/InputField";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function UserRegistration() {
   const [formData, setFormData] = useState({
@@ -47,8 +48,8 @@ function UserRegistration() {
     }
     if (!formData.phoneNumber.trim()) {
       errors.phoneNumber = "Phone number is required";
-    } else if (!isValidPhoneNumber(formData.phoneNumber)){
-      errors.phoneNumber = "Enter Valid Phone Number"
+    } else if (!isValidPhoneNumber(formData.phoneNumber)) {
+      errors.phoneNumber = "Enter Valid Phone Number";
     }
     if (!formData.password.trim()) {
       errors.password = "Password is required";
@@ -56,7 +57,7 @@ function UserRegistration() {
     if (!formData.confirmPassword.trim()) {
       errors.confirmPassword = "Confirm Password is required";
     } else if (formData.password !== formData.confirmPassword) {
-      alert("Passwords Do not Match !")
+      alert("Passwords Do not Match !");
     }
 
     // Update form errors
@@ -66,6 +67,16 @@ function UserRegistration() {
     if (Object.keys(errors).length === 0) {
       console.log("Form submitted:", formData);
       // You can perform further actions like API calls here
+      axios.post("http://localhost:8081/api/auth/registerUser", {
+        name: formData.name,
+        email: formData.email,
+        phoneNumber:formData.phoneNumber,
+        password:formData.password
+      }).then((response)=>{
+        console.log(response.data)
+      }).catch((error)=>{
+        console.log(error.response.data.message)
+      });
     }
   };
 
@@ -74,10 +85,10 @@ function UserRegistration() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-  const isValidPhoneNumber = (phoneNumber) =>{
+  const isValidPhoneNumber = (phoneNumber) => {
     const phoneNumberRegex = /^(?:\+91|91|0)?[6-9]\d{9}$/;
     return phoneNumberRegex.test(phoneNumber);
-  }
+  };
 
   const isSmallScreen = window.innerWidth <= 576;
 
