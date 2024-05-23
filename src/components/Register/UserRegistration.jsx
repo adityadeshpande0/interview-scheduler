@@ -71,7 +71,7 @@ function UserRegistration() {
         name: formData.name,
         email: formData.email,
         phoneNumber:formData.phoneNumber,
-        password:formData.password
+        password:formData.password,
       }).then((response)=>{
         console.log(response.data)
       }).catch((error)=>{
