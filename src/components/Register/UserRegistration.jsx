@@ -84,7 +84,6 @@ function UserRegistration() {
 
     // If there are no errors, submit the form
     if (Object.keys(errors).length === 0) {
-      console.log("Form submitted:", formData);
       // API CALL
       registerUserApi(APIURL, DATA);
     }

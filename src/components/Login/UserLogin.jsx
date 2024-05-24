@@ -63,7 +63,6 @@ function UserLogin() {
 
     // If there are no errors, submit the form
     if (Object.keys(errors).length === 0) {
-      console.log("Form submitted:", formData);
       // You can perform further actions like API calls here
       loginUserApi(APIURL, DATA)
     }
