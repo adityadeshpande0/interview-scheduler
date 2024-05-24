@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import InputField from "../commons/InputField";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function UserLogin() {
   const [formData, setFormData] = useState({
@@ -26,6 +27,21 @@ function UserLogin() {
       [name]: "",
     });
   };
+  const APIURL = `${import.meta.env.VITE_API_URL}/loginuser`;
+  const DATA = {
+    email: formData.email,
+    password: formData.password,
+  };
+  const loginUserApi = (APIURL, DATA) => {
+    axios
+      .post(APIURL, DATA)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,6 +65,7 @@ function UserLogin() {
     if (Object.keys(errors).length === 0) {
       console.log("Form submitted:", formData);
       // You can perform further actions like API calls here
+      loginUserApi(APIURL, DATA)
     }
   };
 
