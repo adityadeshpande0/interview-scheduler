@@ -34,6 +34,25 @@ function UserRegistration() {
     });
   };
 
+  //Validation for fields
+  const isValidEmail = (email) => {
+    // Regular expression to validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  const isValidPhoneNumber = (phoneNumber) => {
+    const phoneNumberRegex = /^(?:\+91|91|0)?[6-9]\d{9}$/;
+    return phoneNumberRegex.test(phoneNumber);
+  };
+  
+  const APIURL = `${import.meta.env.VITE_API_URL}/registerUser`;
+  const DATA = {
+    name: formData.name,
+    email: formData.email,
+    phoneNumber: formData.phoneNumber,
+    password: formData.password,
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform form validation
@@ -66,31 +85,24 @@ function UserRegistration() {
     // If there are no errors, submit the form
     if (Object.keys(errors).length === 0) {
       console.log("Form submitted:", formData);
-      // You can perform further actions like API calls here
-      axios.post("http://localhost:8081/api/auth/registerUser", {
-        name: formData.name,
-        email: formData.email,
-        phoneNumber:formData.phoneNumber,
-        password:formData.password,
-      }).then((response)=>{
-        console.log(response.data)
-      }).catch((error)=>{
-        console.log(error.response.data.message)
-      });
+      // API CALL
+      registerUserApi(APIURL, DATA);
     }
   };
 
-  const isValidEmail = (email) => {
-    // Regular expression to validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-  const isValidPhoneNumber = (phoneNumber) => {
-    const phoneNumberRegex = /^(?:\+91|91|0)?[6-9]\d{9}$/;
-    return phoneNumberRegex.test(phoneNumber);
-  };
-
+  
   const isSmallScreen = window.innerWidth <= 576;
+
+  const registerUserApi = (APIURL, DATA) => {
+    axios
+      .post(APIURL, DATA)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
+  };
 
   return (
     <div className={`navbar-brand ${isSmallScreen ? "p-3" : ""}`}>
