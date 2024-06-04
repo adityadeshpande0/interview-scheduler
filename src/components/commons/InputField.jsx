@@ -21,4 +21,5 @@ function InputField({ name, label, placeholder, value, onChange, error, type }) 
   );
 }
 
+
 export default InputField;
