@@ -36,6 +36,8 @@ function Scheduler() {
                     name="paymentStatus"
                     className="mx-2 form-check-input"
                     type="radio"
+                    value={false}
+                    onChange={isPaid}
                   />
                 </div>
                 <div className="col d-flex align-items-center">
@@ -44,20 +46,22 @@ function Scheduler() {
                     name="paymentStatus"
                     className="mx-2 form-check-input"
                     type="radio"
+                    value={true}
+                    onChange={isPaid}
                   />
                 </div>
               </div>
             </div>
-            <InputField
-              label="Transaction Id"
-              placeholder="Paste your payment Id here"
-            />
-            <button
-              className="btn btn-primary col-12 mt-2"
-              // onClick={handleSubmit}
-            >
-              Send Request
-            </button>
+            <div className="row">
+              {paymentStatus?<button className="btn btn-outline-secondary mb-2">Make Payment</button>:null}
+              <InputField label="Transaction Id" placeholder="Paste your transaction Id"/>
+              <button
+                className="btn btn-primary col-12 mt-2"
+                // onClick={handleSubmit}
+              >
+                Send Request
+              </button>
+            </div>
           </div>
         </div>
       </div>
