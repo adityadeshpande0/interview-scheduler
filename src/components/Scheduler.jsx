@@ -9,8 +9,9 @@ function Scheduler() {
   };
 
   return (
-    <div className="container-fluid d-flex justify-content-center align-items-center bg-light col-lg-6 mt-4 p-4">
-      <div className="col-4 col-md-12 col-lg-10">
+    <div className="p-4">
+    <div className="container-fluid card d-flex justify-content-center align-items-center bg-light col-lg-5 col-md-8 mt-4 p-4">
+      <div className="col-12 col-md-12 col-lg-12">
         <h2 className="text-center mb-4">Schedule Your Interview</h2>
         <div>
           <InputField label="Date of Interview" type="date" />
@@ -63,6 +64,7 @@ function Scheduler() {
           <button className="btn btn-primary mt-3 w-100">Send Request</button>
         </div>
       </div>
+    </div>
     </div>
   );
 }
