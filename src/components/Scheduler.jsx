@@ -7,15 +7,18 @@ function Scheduler() {
   const isPaid = (event) => {
     setPaymentStatus(event.target.value === "true");
   };
-
+  const isSmallScreen = window.innerWidth <= 576;
   return (
-    <div className="p-4">
-      <div className="container-fluid card d-flex justify-content-center align-items-center bg-light col-lg-5 col-md-8 mt-4 p-4">
-        <div className="col-12 col-md-12 col-lg-12">
-          <h2 className="text-center mb-4">Schedule Your Interview</h2>
-          <div>
-            <InputField label="Date of Interview" type="date" />
-            <div className="mt-3">
+    <div className={`navbar-brand ${isSmallScreen ? "p-3" : ""}`}>
+      <p className="text-center fs-5 mt-2">
+        <span className="badge text-bg-light p-2">Schedule </span> your
+        Interview
+      </p>
+      <div className="container card d-flex col-md-4 bg-light">
+        <div className="row justify-content-center">
+          <div className="col-md-10 pt-4 pb-4">
+            <InputField name="date" label="Select Date" type="date" />
+            <div className="mb-3">
               <label>Select Preferred Time Slot</label>
               <select className="form-select" name="timeSlot" id="timeSlot">
                 <option value="11 AM to 12 PM">11 AM to 12 PM</option>
@@ -24,44 +27,37 @@ function Scheduler() {
                 <option value="5 PM to 6 PM">5 PM to 6 PM</option>
               </select>
             </div>
-            <div className="row mt-3 mb-3">
-              <span>Payment Status</span>
-              <div className="col-6 d-flex align-items-center mt-2">
-                <input
-                  id="paid"
-                  className="form-check-input me-1"
-                  name="paymentStatus"
-                  value={true}
-                  type="radio"
-                  checked={paymentStatus}
-                  onChange={isPaid}
-                />
-                <label className="form-check-label" htmlFor="paid">
-                  Paid
-                </label>
-              </div>
-              <div className="col-6 d-flex align-items-center">
-                <input
-                  id="unpaid"
-                  className="form-check-input me-1"
-                  name="paymentStatus"
-                  value={false}
-                  type="radio"
-                  // checked={!paymentStatus}
-                  onChange={isPaid}
-                />
-                <label className="form-check-label" htmlFor="unpaid">
-                  Pending
-                </label>
+            <div className="d-flex row mb-3">
+              <label>Payment Status</label>
+              <div className="row mt-1">
+                <div className="col d-flex align-items-center">
+                  <label className="form-check-label">Paid</label>
+                  <input
+                    name="paymentStatus"
+                    className="mx-2 form-check-input"
+                    type="radio"
+                  />
+                </div>
+                <div className="col d-flex align-items-center">
+                  <label className="form-check-label">Pending</label>
+                  <input
+                    name="paymentStatus"
+                    className="mx-2 form-check-input"
+                    type="radio"
+                  />
+                </div>
               </div>
             </div>
-            {paymentStatus && (
-              <InputField
-                label="Transaction Id"
-                placeholder="Paste your transaction ID here"
-              />
-            )}
-            <button className="btn btn-primary mt-3 w-100">Send Request</button>
+            <InputField
+              label="Transaction Id"
+              placeholder="Paste your payment Id here"
+            />
+            <button
+              className="btn btn-primary col-12 mt-2"
+              // onClick={handleSubmit}
+            >
+              Send Request
+            </button>
           </div>
         </div>
       </div>
