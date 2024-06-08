@@ -34,19 +34,30 @@ function UserLogin() {
   };
   const loginUserApi = (APIURL, DATA) => {
     axios
-      .post(APIURL, DATA)
+      .post(APIURL, DATA, {
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Origin': 'https://interviewscheduler-yhcz.onrender.com' // Set the Content-Type header to application/json
+        }
+      })
       .then((response) => {
-        localStorage.setItem('authToken', response.data.authToken)
-        console.log(response.data.authToken)
-        window.location.href = '/schedule-interview'
-        console.log("Successs")
+        localStorage.setItem('authToken', response.data.authToken);
+        console.log(response.data.authToken);
+        window.location.href = '/schedule-interview';
+        console.log("Success");
       })
       .catch((error) => {
-        // console.log("object")
-        console.log(error.response.data.message);
+        console.error(error);
+        if (error.response) {
+          console.error('Error response:', error.response.data);
+        } else if (error.request) {
+          console.error('Error request:', error.request);
+        } else {
+          console.error('Error message:', error.message);
+        }
       });
   };
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform form validation
