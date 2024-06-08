@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    if (authToken) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setIsLoggedIn(false);
+    window.location.href = '/login'
+  };
+
   return (
     <nav className="navbar sticky-top bg-body-tertiary">
       <div className="container-fluid">
@@ -9,12 +26,34 @@ function Navbar() {
           Interview Scheduler
         </Link>
         <div className="d-flex">
-          <Link class="btn btn-light m-1 btn-sm" to="/">
-            Register
-          </Link>
-          <Link class="btn btn-light m-1 btn-sm" to="/login">
-            Login
-          </Link>
+          {isLoggedIn ? (
+            <div>
+              <Link
+                className="btn btn-light m-1 btn-sm"
+                to="/schedule-interview"
+              >
+                Schedule Interview
+              </Link>
+              <Link className="btn btn-light m-1 btn-sm" to="/user-requests">
+                Your Requests
+              </Link>
+              <button
+                className="btn btn-primary"
+                onClick={handleLogout}
+              >
+                Log Out
+              </button>
+            </div>
+          ) : (
+            <>
+              <Link className="btn btn-light m-1 btn-sm" to="/">
+                Register
+              </Link>
+              <Link className="btn btn-light m-1 btn-sm" to="/login">
+                Login
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>

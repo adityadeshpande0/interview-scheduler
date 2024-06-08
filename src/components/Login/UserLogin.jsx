@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import InputField from "../commons/InputField";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import axios from "axios";
 
 function UserLogin() {
@@ -36,9 +36,13 @@ function UserLogin() {
     axios
       .post(APIURL, DATA)
       .then((response) => {
-        console.log(response.data);
+        localStorage.setItem('authToken', response.data.authToken)
+        console.log(response.data.authToken)
+        window.location.href = '/schedule-interview'
+        console.log("Successs")
       })
       .catch((error) => {
+        // console.log("object")
         console.log(error.response.data.message);
       });
   };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import InputField from "./commons/InputField";
+import InputField from "../commons/InputField";
 
 function Scheduler() {
   const [paymentStatus, setPaymentStatus] = useState(false);
@@ -27,7 +27,7 @@ function Scheduler() {
                 <option value="5 PM to 6 PM">5 PM to 6 PM</option>
               </select>
             </div>
-            <div className="d-flex row mb-3">
+            {/* <div className="d-flex row mb-3">
               <label>Payment Status</label>
               <div className="row mt-1">
                 <div className="col d-flex align-items-center">
@@ -51,17 +51,17 @@ function Scheduler() {
                   />
                 </div>
               </div>
-            </div>
-            <div className="row">
-              {paymentStatus?<button className="btn btn-outline-secondary mb-2">Make Payment</button>:null}
-              <InputField label="Transaction Id" placeholder="Paste your transaction Id"/>
-              <button
+            </div> */}
+            <button
                 className="btn btn-primary col-12 mt-2"
                 // onClick={handleSubmit}
               >
                 Send Request
               </button>
-            </div>
+            {/* <div className="row">
+              {paymentStatus?<button className="btn btn-outline-secondary mb-2">Make Payment</button>:null}
+              <InputField label="Transaction Id" placeholder="Paste your transaction Id"/>
+            </div> */}
           </div>
         </div>
       </div>
