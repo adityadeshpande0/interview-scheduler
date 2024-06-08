@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import InputField from "../commons/InputField";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 function UserLogin() {
@@ -13,6 +13,8 @@ function UserLogin() {
     email: "",
     password: "",
   });
+
+  const [loading, setLoading] = useState(false); // State to track loading state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,24 +29,25 @@ function UserLogin() {
       [name]: "",
     });
   };
+
   const APIURL = `${import.meta.env.VITE_API_URL}/loginuser`;
   const DATA = {
     email: formData.email,
     password: formData.password,
   };
+
   const loginUserApi = (APIURL, DATA) => {
+    setLoading(true); // Set loading state to true when login request starts
     axios
       .post(APIURL, DATA, {
         headers: {
           'Content-Type': 'application/json',
-          // 'Origin': 'https://interviewscheduler-yhcz.onrender.com' // Set the Content-Type header to application/json
         }
       })
       .then((response) => {
         localStorage.setItem('authToken', response.data.authToken);
-        console.log(response.data.authToken);
         window.location.href = '/schedule-interview';
-        console.log("Success");
+        console.log("Login Success !");
       })
       .catch((error) => {
         console.error(error);
@@ -55,9 +58,12 @@ function UserLogin() {
         } else {
           console.error('Error message:', error.message);
         }
+      })
+      .finally(() => {
+        setLoading(false); // Set loading state to false when request completes (success or error)
       });
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform form validation
@@ -121,8 +127,9 @@ function UserLogin() {
             <button
               className="btn btn-primary w-100 mt-2"
               onClick={handleSubmit}
+              disabled={loading} // Disable the button when loading is true
             >
-              Login
+              {loading ? "Logging In..." : "Login"}
             </button>
           </div>
         </div>
