@@ -29,7 +29,7 @@ function Navbar() {
           {isLoggedIn ? (
             <div>
               <Link
-                className="btn btn-light m-1 btn-sm"
+                className="btn btn-light m-1 btn-sm mx-2"
                 to="/schedule-interview"
               >
                 Schedule Interview
@@ -46,7 +46,7 @@ function Navbar() {
             </div>
           ) : (
             <>
-              <Link className="btn btn-light m-1 btn-sm" to="/">
+              <Link className="btn btn-light m-1 btn-sm mx-3" to="/">
                 Register
               </Link>
               <Link className="btn btn-light m-1 btn-sm" to="/login">

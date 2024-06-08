@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import UserRegistration from "./components/Register/UserRegistration";
 import Scheduler from "./components/User/Scheduler";
 import UserRequests from "./components/User/UserRequests";
+import ProtectedRoute from "./components/Navigation/ProtectedRoute";
 
 function App() {
   return (
@@ -11,10 +12,12 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<UserRegistration />} />
+          <Route element={<ProtectedRoute/>}>
+            <Route path="/schedule-interview" element={<Scheduler />} />
+            <Route path="/user-requests" element={<UserRequests />} />
+          </Route>
           <Route path="/login" element={<UserLogin />} />
-          <Route path="/schedule-interview" element={<Scheduler />} />
-          <Route path="/user-requests" element={<UserRequests/>}/>
+          <Route path="/" element={<UserRegistration />} />
         </Routes>
       </Router>
     </>
