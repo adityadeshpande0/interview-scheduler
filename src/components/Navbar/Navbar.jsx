@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
-    if (authToken) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
+    setIsLoggedIn(!!authToken);
+    if(location.pathname==='/login' || location.pathname==='/'){
+      localStorage.removeItem("authToken")
     }
-  }, []);
+  }, [location]);
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     setIsLoggedIn(false);
-    window.location.href = '/login'
+    window.location.href = '/login';
   };
 
   return (
@@ -38,7 +38,7 @@ function Navbar() {
                 Your Requests
               </Link>
               <button
-                className="btn btn-primary"
+                className="btn btn-primary "
                 onClick={handleLogout}
               >
                 Log Out

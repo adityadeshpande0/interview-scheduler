@@ -26,7 +26,7 @@ function Scheduler() {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Ensure token is stored in localStorage after login
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`, 
           },
         }
       );
