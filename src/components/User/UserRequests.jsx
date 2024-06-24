@@ -7,7 +7,7 @@ function UserRequests() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const fetchRequests = async () => {
-    const token = localStorage.getItem("authToken");
+    const token = sessionStorage.getItem("authToken");
     if (!token) {
       setError("No auth token found, please log in.");
       return;
@@ -35,7 +35,7 @@ function UserRequests() {
   }, []);
 
   const handleWithdrawRequest = async (requestId) => {
-    const token = localStorage.getItem("authToken");
+    const token = sessionStorage.getItem("authToken");
     if (!token) {
       setError("No auth token found, please log in.");
       return;
@@ -56,7 +56,7 @@ function UserRequests() {
   };
 
   const handleApproveRequest = async (requestId) => {
-    const token = localStorage.getItem("authToken");
+    const token = sessionStorage.getItem("authToken");
     if (!token) {
       setError("No auth token found, please log in.");
       return;

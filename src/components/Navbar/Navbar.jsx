@@ -6,15 +6,15 @@ function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
+    const authToken = sessionStorage.getItem("authToken");
     setIsLoggedIn(!!authToken);
     if(location.pathname==='/login' || location.pathname==='/'){
-      localStorage.removeItem("authToken")
+      sessionStorage.removeItem("authToken")
     }
   }, [location]);
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
+    sessionStorage.removeItem("authToken");
     setIsLoggedIn(false);
     window.location.href = '/login';
   };

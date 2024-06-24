@@ -45,7 +45,7 @@ function UserLogin() {
         }
       })
       .then((response) => {
-        localStorage.setItem('authToken', response.data.authToken);
+        sessionStorage.setItem('authToken', response.data.authToken);
         window.location.href = '/schedule-interview';
         console.log("Login Success !" + response.data.authToken);
       })
