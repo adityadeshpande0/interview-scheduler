@@ -99,7 +99,7 @@ function UserRequests() {
               )}
               {isAdmin && (
                 <>
-                  <button className="btn btn-success col-12 mt-2" onClick={() => handleApproveRequest(request._id)}>Approve Request</button>
+                  <button className="btn btn-success col-12 mt-2" onClick={() => handleApproveRequest(request._id)} disabled={request.status}>Approve Request</button>
                   <button className="btn btn-danger col-12 mt-2" onClick={() => handleWithdrawRequest(request._id)}>Reject Request</button>
                 </>
               )}
