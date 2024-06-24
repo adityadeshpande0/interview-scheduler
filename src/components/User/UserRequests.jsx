@@ -15,14 +15,12 @@ function UserRequests() {
 
     const APIURL = `${import.meta.env.VITE_API_URL}/interview-requests`;
     try {
-      console.log("Auth Token:", token);
       const response = await axios.get(APIURL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       setRequests(response.data.interviewRequests || []); // Ensure it's an array
-      console.log(response.data.isAdmin);
       setIsAdmin(response.data.isAdmin === 'admin');
     } catch (error) {
       console.error("Error fetching interview requests:", error);
@@ -96,7 +94,9 @@ function UserRequests() {
               <p>
                 Status: <span>{request.status ? "Approved" : "Pending Approval"}</span>
               </p>
-              <button className="btn btn-warning col-12" onClick={() => handleWithdrawRequest(request._id)}>Withdraw Request</button>
+              {!isAdmin && ( // Hide the Withdraw button if isAdmin is true
+                <button className="btn btn-warning col-12" onClick={() => handleWithdrawRequest(request._id)}>Withdraw Request</button>
+              )}
               {isAdmin && (
                 <>
                   <button className="btn btn-success col-12 mt-2" onClick={() => handleApproveRequest(request._id)}>Approve Request</button>
