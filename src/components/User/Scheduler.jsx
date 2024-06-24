@@ -26,7 +26,7 @@ function Scheduler() {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`, 
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`, 
           },
         }
       );
