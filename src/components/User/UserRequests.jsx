@@ -111,7 +111,7 @@ function UserRequests() {
               </p>
               <p>
                 Status:{" "}
-                <span>{request.status ? "Approved" : "Pending Approval"}</span>
+                <span>{request.status}</span>
               </p>
               {!isAdmin && ( // Hide the Withdraw button if isAdmin is true
                 <button
@@ -126,7 +126,7 @@ function UserRequests() {
                   <button
                     className="btn btn-success col-12 mt-2"
                     onClick={() => handleApproveRequest(request._id)}
-                    disabled={request.status}
+                    disabled={request.status==="approved"}
                   >
                     Approve Request
                   </button>
