@@ -26,15 +26,16 @@ function Scheduler() {
         },
         {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`, 
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
         }
       );
-      setSuccess("Interview scheduled successfully!");
+      setSuccess(response.data.message);
+      console.log(response.data.message);
       setError(null);
     } catch (error) {
       console.error("Error scheduling interview:", error);
-      setError("Failed to schedule interview. Please try again.");
+      setError(error.response.data.error);
       setSuccess(null);
     }
   };
@@ -48,10 +49,20 @@ function Scheduler() {
       <div className="container card d-flex col-md-4 bg-light">
         <div className="row justify-content-center">
           <div className="col-md-10 pt-4 pb-4">
-            <InputField name="date" label="Select Date" type="date" onChange={handleDateChange} />
+            <InputField
+              name="date"
+              label="Select Date"
+              type="date"
+              onChange={handleDateChange}
+            />
             <div className="mb-3">
               <label>Select Preferred Time Slot</label>
-              <select className="form-select" name="timeSlot" id="timeSlot" onChange={handleTimeSlotChange}>
+              <select
+                className="form-select"
+                name="timeSlot"
+                id="timeSlot"
+                onChange={handleTimeSlotChange}
+              >
                 <option value="11 AM to 12 PM">11 AM to 12 PM</option>
                 <option value="1 PM to 2 PM">1 PM to 2 PM</option>
                 <option value="3 PM to 4 PM">3 PM to 4 PM</option>
