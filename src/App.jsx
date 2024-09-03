@@ -5,7 +5,6 @@ import UserRegistration from "./components/Register/UserRegistration";
 import Scheduler from "./components/User/Scheduler";
 import UserRequests from "./components/User/UserRequests";
 import ProtectedRoute from "./components/Navigation/ProtectedRoute";
-import LoginForm from "./components/Login/LoginForm";
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
             <Route path="/user-requests" element={<UserRequests />} />
           </Route>
           <Route path="/login" element={<UserLogin />} />
-          <Route path="/mockLogin" element={<LoginForm />} />
           <Route path="/" element={<UserRegistration />} />
         </Routes>
       </Router>

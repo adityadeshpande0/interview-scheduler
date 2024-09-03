@@ -2,91 +2,37 @@ import React, { useState } from "react";
 import InputField from "../commons/InputField";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import useFormValidation from "../../utils/hooks/useFormValidation";
+import inputFieldValidation from "../../utils/functions/inputFieldValidation";
 
 function UserRegistration() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phoneNumber: "",
-    password: "",
-    confirmPassword: "",
-  });
 
-  const [formErrors, setFormErrors] = useState({
-    name: "",
-    email: "",
-    phoneNumber: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const initialFormState = {
+    name:'',
+    email:'',
+    phoneNumber:'',
+    password:'',
+    confirmPassword:''
+  }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-
-    // Clear error message for the field being edited
-    setFormErrors({
-      ...formErrors,
-      [name]: "",
-    });
-  };
-
-  //Validation for fields
-  const isValidEmail = (email) => {
-    // Regular expression to validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-  const isValidPhoneNumber = (phoneNumber) => {
-    const phoneNumberRegex = /^(?:\+91|91|0)?[6-9]\d{9}$/;
-    return phoneNumberRegex.test(phoneNumber);
-  };
+  const {
+    formInput,
+    errors,
+    handleBlur,
+    handleChange,
+    handleSubmit:validateSubmit,
+  } = useFormValidation(initialFormState, inputFieldValidation)
   
   const APIURL = `${import.meta.env.VITE_API_URL}/registerUser`;
   const DATA = {
-    name: formData.name,
-    email: formData.email,
-    phoneNumber: formData.phoneNumber,
-    password: formData.password,
+    name: formInput.name,
+    email: formInput.email,
+    phoneNumber: formInput.phoneNumber,
+    password: formInput.password,
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // Perform form validation
-    let errors = {};
-    if (!formData.name.trim()) {
-      errors.name = "Name is required";
-    }
-    if (!formData.email.trim()) {
-      errors.email = "Email is required";
-    } else if (!isValidEmail(formData.email)) {
-      errors.email = "Invalid email format";
-    }
-    if (!formData.phoneNumber.trim()) {
-      errors.phoneNumber = "Phone number is required";
-    } else if (!isValidPhoneNumber(formData.phoneNumber)) {
-      errors.phoneNumber = "Enter Valid Phone Number";
-    }
-    if (!formData.password.trim()) {
-      errors.password = "Password is required";
-    }
-    if (!formData.confirmPassword.trim()) {
-      errors.confirmPassword = "Confirm Password is required";
-    } else if (formData.password !== formData.confirmPassword) {
-      alert("Passwords Do not Match !");
-    }
-
-    // Update form errors
-    setFormErrors(errors);
-
-    // If there are no errors, submit the form
-    if (Object.keys(errors).length === 0) {
-      // API CALL
-      registerUserApi(APIURL, DATA);
-    }
+   validateSubmit (e, ()=>registerUserApi(APIURL, DATA))
   };
 
   
@@ -116,43 +62,43 @@ function UserRegistration() {
               name="name"
               label="Name"
               placeholder="Enter your full name"
-              value={formData.name}
+              value={formInput.name}
               onChange={handleChange}
-              error={formErrors.name}
+              error={errors.name}
             />
             <InputField
               name="email"
               label="Email"
               placeholder="Enter your email id"
-              value={formData.email}
+              value={formInput.email}
               onChange={handleChange}
-              error={formErrors.email}
+              error={errors.email}
             />
             <InputField
               name="phoneNumber"
               label="Phone Number"
               placeholder="Enter phone number"
-              value={formData.phoneNumber}
+              value={formInput.phoneNumber}
               onChange={handleChange}
-              error={formErrors.phoneNumber}
+              error={errors.phoneNumber}
             />
 
             <InputField
               name="password"
               label="Password"
               placeholder="Enter Password"
-              value={formData.password}
+              value={formInput.password}
               onChange={handleChange}
-              error={formErrors.password}
+              error={errors.password}
             />
             <InputField
               name="confirmPassword"
               label="Confirm Password"
               placeholder="Re Enter Password"
               type="password"
-              value={formData.confirmPassword}
+              value={formInput.confirmPassword}
               onChange={handleChange}
-              error={formErrors.confirmPassword}
+              error={errors.confirmPassword}
             />
             <button
               className="btn btn-primary w-100 mt-2"
